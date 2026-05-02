@@ -11,7 +11,7 @@ import io.jsonwebtoken.security.Keys;
 public class JwtService {
 
     // Must be at least 32 bytes (256 bits) for HS256
-    private final String SECRET = "supersecretkeysupersecretkey123456"; 
+    private final String SECRET = "supersecretkeysupersecretkey123456";
 
     public String generateAccessToken(User user) {
         return Jwts.builder()
@@ -30,5 +30,26 @@ public class JwtService {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String extractRole(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(SECRET.getBytes())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .get("role", String.class);
+    }
+
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(SECRET.getBytes())
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }

@@ -85,8 +85,8 @@ public class AuthController {
         cookie.setPath("/");
         cookie.setMaxAge(7 * 24 * 60 * 60);
         response.addCookie(cookie);
-
-        return ResponseEntity.ok(accessToken);
+        LoginResponse responseBody = new LoginResponse(accessToken, user.getRole());
+        return ResponseEntity.ok(responseBody);
     }
 
     // REFRESH

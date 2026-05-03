@@ -21,6 +21,19 @@ public class OrderService {
     }
 
     public List<Order> getPendingOrdersByUser(String email) {
-    return orderRepository.findByUserEmailAndServedFalse(email);
-}
+        return orderRepository.findByUserEmailAndServedFalse(email);
+    }
+
+    public List<Order> getAllPendingOrders() {
+        return orderRepository.findByServedFalse();
+    }
+
+    public Order markAsServed(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
+
+        order.setServed(true);
+
+        return orderRepository.save(order);
+    }
 }

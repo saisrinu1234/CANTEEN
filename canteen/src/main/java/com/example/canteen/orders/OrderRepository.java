@@ -7,4 +7,5 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
     List<Order> findByUserEmail(String userEmail);
     List<Order> findByUserEmailAndServedFalse(String userEmail);
+    List<Order> findByServedFalse();
 }

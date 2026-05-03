@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin("http://localhost:5173")
 @RequestMapping("/menu")
 public class MenuController {
 
@@ -23,7 +24,7 @@ public class MenuController {
         this.menuRepository = menuRepository;
     }
 
-    @PostMapping("admin/add")
+    @PostMapping("/admin/add")
     public ResponseEntity<?> addMenuItem(
             @RequestParam String name,
             @RequestParam String description,

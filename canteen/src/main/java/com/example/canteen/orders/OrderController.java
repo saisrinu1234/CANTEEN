@@ -8,8 +8,9 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
+
 @RequestMapping("/orders")
-@CrossOrigin
+@CrossOrigin("http://localhost:5173")
 public class OrderController {
 
     @Autowired
@@ -37,6 +38,16 @@ public class OrderController {
         String email = principal.getName(); // ✅ comes from JWT
 
         return orderService.getPendingOrdersByUser(email);
+    }
+
+    @GetMapping("/admin/pending-orders")
+    public ResponseEntity<?> getPendingOrders() {
+        return ResponseEntity.ok(orderService.getAllPendingOrders());
+    }
+
+    @PutMapping("/admin/serve/{id}")
+    public ResponseEntity<?> markAsServed(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.markAsServed(id));
     }
 
 }

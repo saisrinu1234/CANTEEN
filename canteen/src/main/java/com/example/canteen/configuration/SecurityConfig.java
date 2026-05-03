@@ -35,7 +35,9 @@ public class SecurityConfig {
                         .requestMatchers("/menu/all").permitAll()
                         .requestMatchers("/menu/admin/**").hasRole("ADMIN")
                         .requestMatchers("/user/**").hasRole("USER")
-                         .requestMatchers("/orders/**").hasRole("USER")
+                        .requestMatchers("/orders/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/orders/**").hasRole("USER")
+
                         .anyRequest().authenticated());
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
@@ -49,7 +51,7 @@ public class SecurityConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOrigins(List.of("http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of("http://localhost:5173","https://prepossessionary-labouredly-martha.ngrok-free.dev"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true); // 🔥 REQUIRED for cookies

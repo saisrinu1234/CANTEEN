@@ -26,6 +26,8 @@ public class JwtFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
 
         String header = request.getHeader("Authorization");
+        String ipAddress = request.getRemoteAddr();
+        System.out.println("CLIENT IP ADDRESS: " + ipAddress);
 
         if (header != null && header.startsWith("Bearer ")) {
 
@@ -36,7 +38,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 String email = jwtService.extractEmail(token);
                 String role = jwtService.extractRole(token);
                 System.out.println("ROLE FROM TOKEN: " + role);
-                System.out.println("AUTHORITIES: ROLE_" + role);
+                System.out.println("AUTHORITIES:" + role);
 
                 // 🔥 IMPORTANT: must start with ROLE_
                 UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
